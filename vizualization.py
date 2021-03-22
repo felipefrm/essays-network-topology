@@ -18,11 +18,11 @@ for score in scores:
     fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(18, 10))
     axs = [ax1, ax2, ax3, ax4]
 
-    for idx, prop in enumerate(properties):
+    for prop, ax in zip(properties, axs):
 
-        sns.scatterplot(ax=axs[idx], data=df, x=df[prop], y=df[score], hue=df[score], palette='coolwarm_r', legend = False)
-        axs[idx].set(xlabel=prop, ylabel=score)
-        axs[idx].set_title(f'{score} / {prop}')    
+        sns.scatterplot(ax=ax, data=df, x=df[prop], y=df[score], hue=df[score], palette='coolwarm_r', legend = False)
+        ax.set(xlabel=prop, ylabel=score)
+        ax.set_title(f'{score} / {prop}')    
 
         plt.rcParams.update({'figure.max_open_warning': 0})
         plt.title(f"{score}")
