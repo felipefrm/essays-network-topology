@@ -1,6 +1,7 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import numpy as np
 
 df = pd.read_csv('data/network_data.csv')
 
@@ -8,14 +9,24 @@ scores = list(df.columns[:6])
 properties = list(df.columns[6:])
 
 corr = df.corr()
-sns.heatmap(corr, annot=True)
+sns.heatmap(corr, annot=True, annot_kws={"fontsize":8})
+plt.title("Matriz de Correlação")
 plt.savefig("vizualization/correlation.png")
 
 for score in scores:
-    for prop in properties:
+
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(18, 10))
+    axs = [ax1, ax2, ax3, ax4]
+
+    for idx, prop in enumerate(properties):
+
+        sns.scatterplot(ax=axs[idx], data=df, x=df[prop], y=df[score], hue=df[score], palette='coolwarm_r', legend = False)
+        axs[idx].set(xlabel=prop, ylabel=score)
+        axs[idx].set_title(f'{score} / {prop}')    
+
         plt.rcParams.update({'figure.max_open_warning': 0})
-        fig = plt.figure(figsize=(6, 4))
+        plt.title(f"{score}")
         if score not in 'final_score':
             plt.yticks(np.arange(0, 201, 50))
-        sns.scatterplot(data=df, x=df[prop], y=df[score], hue=df[score], palette='coolwarm_r', legend = False)
-        fig.savefig(f"vizualization/{score}:{prop}.png")
+
+        fig.savefig(f"vizualization/{score}.png")
