@@ -11,7 +11,7 @@ print(len(df))
 df_save = pd.DataFrame(columns=['final_score','c1', 'c2', 'c3', 'c4', 'c5', 
 'nodes', 'edges', 'out_degrees','clustering_coefficient','shortest_path_lenght',
 'shortest_path_lenght_weighted', 'assortativity', 'density', 'degree_centrality',
-'betweenness_centrality', 'pagerank', 'closeness_centrality'])
+'betweenness_centrality', 'closeness_centrality', 'pagerank'])
 
 bar = Bar('Processing', max=len(df))
 for index in range(len(df)):
@@ -61,7 +61,7 @@ for index in range(len(df)):
 
     criteria = literal_eval(df.iloc[index]['criteria_scores'])
 
-    df_save.loc[index] = [df.iloc[index]['final_score'], criteria['Competência 1'], criteria['Competência 2'], criteria['Competência 3'], criteria['Competência 4'], criteria['Competência 5'], nodes_count, edges_count, mean_out_degrees, mean_clustering_coefficient, average_shortest_path, average_shortest_path_weight, assortativity, density, mean_degree_centrality, mean_betweenness_centrality, mean_closeness_centrality, pagerank]
+    df_save.loc[index] = [df.iloc[index]['final_score'], criteria['Competência 1'], criteria['Competência 2'], criteria['Competência 3'], criteria['Competência 4'], criteria['Competência 5'], nodes_count, edges_count, mean_out_degrees, mean_clustering_coefficient, average_shortest_path, average_shortest_path_weight, assortativity, density, mean_degree_centrality, mean_betweenness_centrality, mean_closeness_centrality, mean_pagerank]
     
     bar.next()
 
