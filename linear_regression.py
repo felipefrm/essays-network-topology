@@ -5,14 +5,14 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error, r2_score
 
 
-df = pd.read_csv('data/network_data.csv')
+df = pd.read_csv('data/network_data.csv').sample(frac=1)
 
 y = df['c2']
 x = df[['nodes', 'edges', 'out_degrees','clustering_coefficient','shortest_path_lenght',
-'shortest_path_lenght_weighted', 'assortativity', 'density', 'degree_centrality',
+'shortest_path_lenght_inverse_weighted', 'assortativity', 'density', 'degree_centrality',
 'betweenness_centrality', 'closeness_centrality', 'pagerank']]
 
-train_percentage = 0.7
+train_percentage = 0.75
 
 separator = int(len(df) * train_percentage)
 

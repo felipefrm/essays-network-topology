@@ -10,7 +10,7 @@ df = pd.read_csv('data/essays.csv')
 print(len(df))
 df_save = pd.DataFrame(columns=['final_score','c1', 'c2', 'c3', 'c4', 'c5', 
 'nodes', 'edges', 'out_degrees','clustering_coefficient','shortest_path_lenght',
-'shortest_path_lenght_weighted', 'assortativity', 'density', 'degree_centrality',
+'shortest_path_lenght_inverse_weighted', 'assortativity', 'density', 'degree_centrality',
 'betweenness_centrality', 'closeness_centrality', 'pagerank'])
 
 bar = Bar('Processing', max=len(df))
@@ -26,9 +26,11 @@ for index in range(len(df)):
     G.add_edges_from(edges)
 
     edges_weight = dict((','.join(edge), edges.count(edge)) for edge in edges) 
+    max_weight = max(edges_weight.values())
 
     for u, v, d in G.edges(data=True):
         d['weight'] = edges_weight[f'{u},{v}']
+        d['inverse_weight'] = 1 / edges_weight[f'{u},{v}']
 
     nodes_count = G.number_of_nodes()
     edges_count = G.number_of_edges()
@@ -39,7 +41,7 @@ for index in range(len(df)):
     clustering_coefficient = nx.clustering(G, G.nodes(), 'weight')           
     mean_clustering_coefficient = np.mean(list(clustering_coefficient.values()))
 
-    average_shortest_path_weight = nx.average_shortest_path_length(G, 'weight')
+    average_shortest_path_inverse_weight = nx.average_shortest_path_length(G, 'inverse_weight')
 
     average_shortest_path = nx.average_shortest_path_length(G)
 
@@ -61,7 +63,7 @@ for index in range(len(df)):
 
     criteria = literal_eval(df.iloc[index]['criteria_scores'])
 
-    df_save.loc[index] = [df.iloc[index]['final_score'], criteria['Competência 1'], criteria['Competência 2'], criteria['Competência 3'], criteria['Competência 4'], criteria['Competência 5'], nodes_count, edges_count, mean_out_degrees, mean_clustering_coefficient, average_shortest_path, average_shortest_path_weight, assortativity, density, mean_degree_centrality, mean_betweenness_centrality, mean_closeness_centrality, mean_pagerank]
+    df_save.loc[index] = [df.iloc[index]['final_score'], criteria['Competência 1'], criteria['Competência 2'], criteria['Competência 3'], criteria['Competência 4'], criteria['Competência 5'], nodes_count, edges_count, mean_out_degrees, mean_clustering_coefficient, average_shortest_path, average_shortest_path_inverse_weight, assortativity, density, mean_degree_centrality, mean_betweenness_centrality, mean_closeness_centrality, mean_pagerank]
     
     bar.next()
 
