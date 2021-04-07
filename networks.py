@@ -7,7 +7,7 @@ from progress.bar import Bar
 from ast import literal_eval
 
 df = pd.read_csv('data/essays.csv')
-print(len(df))
+
 df_save = pd.DataFrame(columns=['final_score','c1', 'c2', 'c3', 'c4', 'c5', 
 'nodes', 'edges', 'out_degrees','clustering_coefficient','shortest_path_lenght',
 'shortest_path_lenght_inverse_weighted', 'assortativity', 'density', 'degree_centrality',
@@ -38,7 +38,7 @@ for index in range(len(df)):
     out_degrees = dict(G.out_degree(G.nodes(), 'weight'))
     mean_out_degrees = np.mean(list(out_degrees.values()))
 
-    clustering_coefficient = nx.clustering(G, G.nodes(), 'weight')           
+    clustering_coefficient = nx.clustering(G, G.nodes())           
     mean_clustering_coefficient = np.mean(list(clustering_coefficient.values()))
 
     average_shortest_path_inverse_weight = nx.average_shortest_path_length(G, 'inverse_weight')
@@ -52,7 +52,7 @@ for index in range(len(df)):
     degree_centrality = nx.out_degree_centrality(G)
     mean_degree_centrality = np.mean(list(degree_centrality.values()))
 
-    betweenness_centrality = nx.betweenness_centrality(G, weight='weight', endpoints=True)
+    betweenness_centrality = nx.betweenness_centrality(G, endpoints=True)
     mean_betweenness_centrality = np.mean(list(betweenness_centrality.values()))
 
     closeness_centrality = nx.closeness_centrality(G)

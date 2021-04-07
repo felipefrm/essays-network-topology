@@ -16,7 +16,7 @@ properties = list(df.columns[6:])
 
 for score in scores:
 
-    fig, axs = plt.subplots(4, 3, figsize=(18, 10)) 
+    fig, axs = plt.subplots(6, 2, figsize=(10, 18)) 
     fig.subplots_adjust(0.125, 0.1, 0.9, 0.9, 0.4, 0.4)
     
     for prop, ax in zip(properties, axs.ravel()):
