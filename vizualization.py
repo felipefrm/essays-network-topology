@@ -14,7 +14,7 @@ plt.savefig("vizualization/correlation.png")
 scores = list(df.columns[:6])
 properties = list(df.columns[6:])
 
-for score in scores:
+for score in scores[:1]:
 
     fig, axs = plt.subplots(6, 2, figsize=(10, 18)) 
     fig.subplots_adjust(0.125, 0.1, 0.9, 0.9, 0.4, 0.4)
@@ -25,3 +25,18 @@ for score in scores:
         ax.set(xlabel=score, ylabel=prop)
         plt.rcParams.update({'figure.max_open_warning': 0})
         fig.savefig(f"vizualization/{score}.png")
+
+
+df = pd.read_csv('data/means.csv')
+
+score = df.columns[0]
+properties = list(df.columns[1:])
+
+fig, axs = plt.subplots(6, 2, figsize=(10, 18)) 
+fig.subplots_adjust(0.125, 0.1, 0.9, 0.9, 0.4, 0.4)
+    
+for prop, ax in zip(properties, axs.ravel()):
+    sns.lineplot(ax=ax, data=df, x=df[score], y=df[prop])
+    ax.set(xlabel=score, ylabel=prop)
+    plt.rcParams.update({'figure.max_open_warning': 0})
+    fig.savefig(f"vizualization/{score}_means.png")
