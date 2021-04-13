@@ -25,5 +25,5 @@ def remove_empty_essay_title(input_file, output_file):
     df = df[df['text'].apply(lambda x: len(x) > 500)]
     df.to_csv(output_file, header=True, index=False)
 
-remove_empty_essay_title('data/essays.csv', 'data/essays.csv')
+# remove_empty_essay_title('data/essays.csv', 'data/essays.csv')
 # normalize_final_score_and_criteria_score('data/edit.csv', 'data/essays_clean.csv')
