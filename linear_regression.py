@@ -7,7 +7,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 df = pd.read_csv('data/network_data.csv').sample(frac=1)
 
-y = df['c2']
+y = df['final_score']
 x = df[['nodes', 'edges', 'out_degrees','clustering_coefficient','shortest_path_lenght',
 'shortest_path_lenght_inverse_weighted', 'assortativity', 'density', 'degree_centrality',
 'betweenness_centrality', 'closeness_centrality', 'pagerank']]
